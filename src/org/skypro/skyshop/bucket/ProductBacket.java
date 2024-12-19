@@ -1,6 +1,8 @@
 package org.skypro.skyshop.bucket;
+
 import org.skypro.skyshop.product.Product;
 import org.skypro.skyshop.exceptions.ProductNotFoundException;
+
 import java.util.Scanner;
 
 public class ProductBacket {
@@ -10,15 +12,15 @@ public class ProductBacket {
     private String clientName;
 
 
-public Product[] getProducts() {
-    return products;
-}
+    public Product[] getProducts() {
+        return products;
+    }
 
     public ProductBacket() {
         this.products = new Product[5];
     }
 
-    public void addProductBusket (Product product) {
+    public void addProductBusket(Product product) throws ProductNotFoundException {
 
         if (size >= products.length) {
             System.out.println("Нельзя добавить товар, корзина переполнена");
@@ -31,10 +33,11 @@ public Product[] getProducts() {
 
     public String totalValue() throws ProductNotFoundException {
         for (int i = 0; i < size; i++) {
-               if (products == null) {
+            if (products == null) {
                 throw new ProductNotFoundException("Сумма товаров в корзине = 0");
-            } if (products != null) {
-                   Product product = products[i];
+            }
+            if (products != null) {
+                Product product = products[i];
                 totalValue += product.getPrice();
             }
         }
@@ -42,10 +45,10 @@ public Product[] getProducts() {
 
     }
 
-    public void printProduct ()  {
+    public void printProduct() {
         for (Product product : products) {
 
-             if (product != null) {
+            if (product != null) {
                 System.out.println("< " + product.getNameProduct() + " > : < " + product.getPrice() + " >");
             } else if (product == null) {
                 products = null;
@@ -66,14 +69,15 @@ public Product[] getProducts() {
         }
         for (int i = 0; i < size; i++) {
             Product product = products[i];
-           if (clientName.equals(product.getNameProduct())) {
-                                existance = true;
+            if (clientName.equals(product.getNameProduct())) {
+                existance = true;
                 System.out.println(existance);
             }
 
         }
         System.out.println(existance);
     }
+
     public void deleteProducts() {
         for (int i = 0; i < size; i++) {
             if (products != null) {
@@ -81,7 +85,6 @@ public Product[] getProducts() {
             }
         }
     }
-
 
 
 }

@@ -1,4 +1,5 @@
 package org.skypro.skyshop;
+
 import org.skypro.skyshop.bucket.ProductBacket;
 import org.skypro.skyshop.exceptions.ProductNotFoundException;
 import org.skypro.skyshop.product.Product;
@@ -8,11 +9,11 @@ public class App {
 
         ProductBacket backet = new ProductBacket();
         backet.addProductBusket(new Product("Груша", 4));
-        backet.addProductBusket(new Product("Ёлка",50));
-        backet.addProductBusket(new Product("Гирлянда",25));
-        backet.addProductBusket(new Product("Книга",13));
-        backet.addProductBusket(new Product("Апельсины",45));
-
+        backet.addProductBusket(new Product("Ёлка", 50));
+        backet.addProductBusket(new Product("Гирлянда", 25));
+        backet.addProductBusket(new Product("Книга", 13));
+        backet.addProductBusket(new Product("Апельсины", 45));
+        backet.addProductBusket(new Product("fgbf", 4));
         System.out.println("Содержимое корзины: ");
 
         backet.printProduct();
@@ -20,7 +21,7 @@ public class App {
 
         backet.productExistance();
         backet.deleteProducts();
-         backet.printProduct();
+        backet.printProduct();
 
         try {
             backet.totalValue();
