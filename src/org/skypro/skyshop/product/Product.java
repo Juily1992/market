@@ -1,26 +1,23 @@
-package org.skypro.skyshop;
-import java.util.Objects;
+package org.skypro.skyshop.product;
 
+import java.util.Objects;
+import org.skypro.skyshop.product.Product;
 
 public class Product {
-    private String nameProduct;
-    private int price;
+    final String nameProduct;
+    final int price;
 
     public Product(String nameProduct, int price) {
-            this.nameProduct = nameProduct;
-            this.price = price;
+        this.nameProduct = nameProduct;
+        this.price = price;
     }
-    public String getNameProduct() {
+
+        public String getNameProduct() {
         return nameProduct;
     }
-    public void setNameProduct(String nameProduct) {
-        this.nameProduct = nameProduct;
-    }
+
     public int getPrice() {
         return price;
-    }
-    public void setPrice(int price) {
-        this.price = price;
     }
 
     @Override

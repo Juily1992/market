@@ -1,36 +1,35 @@
 package org.skypro.skyshop;
-
-import java.util.Objects;
-import java.io.File;
-
-import org.skypro.skyshop.ProductBusket;
+import org.skypro.skyshop.bucket.ProductBacket;
+import org.skypro.skyshop.exceptions.ProductNotFoundException;
+import org.skypro.skyshop.product.Product;
 
 public class App {
-    public static void main(String[] args) throws ProductBusket.ProductNotFoundException {
-        ProductBusket productBusket = new ProductBusket();
+    public static void main(String[] args) throws ProductNotFoundException {
 
-        productBusket.addProductBusket("Мыло", 30);
-        productBusket.addProductBusket("Ёлка", 50);
-        productBusket.addProductBusket("Гирлянда", 25);
-        productBusket.addProductBusket("Книга", 13);
-        productBusket.addProductBusket("Апельсины", 45);
-
+        ProductBacket backet = new ProductBacket();
+        backet.addProductBusket(new Product("Груша", 4));
+        backet.addProductBusket(new Product("Ёлка",50));
+        backet.addProductBusket(new Product("Гирлянда",25));
+        backet.addProductBusket(new Product("Книга",13));
+        backet.addProductBusket(new Product("Апельсины",45));
 
         System.out.println("Содержимое корзины: ");
-        productBusket.printProduct();
-        System.out.println(productBusket.totalValue());
 
-        System.out.println(productBusket.productExistance());
-        productBusket.deleteProducts();
-        productBusket.printProduct();
+        backet.printProduct();
+        System.out.println(backet.totalValue());
+
+        backet.productExistance();
+        backet.deleteProducts();
+         backet.printProduct();
+
         try {
-            productBusket.totalValue();
-        } catch (ProductBusket.ProductNotFoundException e) {
+            backet.totalValue();
+        } catch (ProductNotFoundException e) {
             System.out.println(e.getMessage());
         }
         try {
-            productBusket.productExistance();
-        } catch (ProductBusket.ProductNotFoundException e) {
+            backet.productExistance();
+        } catch (ProductNotFoundException e) {
             System.out.println(e.getMessage());
         }
 
