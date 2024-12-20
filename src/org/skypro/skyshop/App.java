@@ -13,23 +13,15 @@ public class App {
         backet.addProductBusket(new Product("Гирлянда", 25));
         backet.addProductBusket(new Product("Книга", 13));
         backet.addProductBusket(new Product("Апельсины", 45));
-        backet.addProductBusket(new Product("fgbf", 4));
         System.out.println("Содержимое корзины: ");
-
         backet.printProduct();
-        System.out.println(backet.totalValue());
-
-        backet.productExistance();
+        System.out.println("Итого: " + backet.totalValue());
+        backet.productExistance("Hexf");
         backet.deleteProducts();
         backet.printProduct();
-
+        backet.totalValue();
         try {
-            backet.totalValue();
-        } catch (ProductNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
-        try {
-            backet.productExistance();
+            backet.productExistance("Мыло");
         } catch (ProductNotFoundException e) {
             System.out.println(e.getMessage());
         }

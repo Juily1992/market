@@ -6,10 +6,9 @@ import org.skypro.skyshop.exceptions.ProductNotFoundException;
 import java.util.Scanner;
 
 public class ProductBacket {
-    private int totalValue = 0;
+
     private int size;
     private Product[] products;
-    private String clientName;
 
 
     public Product[] getProducts() {
@@ -31,39 +30,31 @@ public class ProductBacket {
 
     }
 
-    public String totalValue() throws ProductNotFoundException {
+    public int totalValue() {
+        int totalValue = 0;
         for (int i = 0; i < size; i++) {
-            if (products == null) {
-                throw new ProductNotFoundException("Сумма товаров в корзине = 0");
-            }
             if (products != null) {
                 Product product = products[i];
                 totalValue += product.getPrice();
             }
         }
-        return "Стоимость вашей корзины: " + totalValue;
-
+        return totalValue;
     }
 
-    public void printProduct() {
+    public void printProduct() throws ProductNotFoundException {
         for (Product product : products) {
-
             if (product != null) {
                 System.out.println("< " + product.getNameProduct() + " > : < " + product.getPrice() + " >");
             } else if (product == null) {
                 products = null;
                 System.out.println(products);
-
             }
-
         }
+        System.out.println("Итого: " + totalValue());
     }
 
-    public void productExistance() throws ProductNotFoundException {
+    public boolean productExistance(String clientName) throws ProductNotFoundException {
         boolean existance = false;
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Введите имя продукта: ");
-        clientName = scanner.nextLine();
         if (products == null) {
             throw new ProductNotFoundException("Невозможно найти продукт в корзине, так как корзина пустая!");
         }
@@ -73,9 +64,9 @@ public class ProductBacket {
                 existance = true;
                 System.out.println(existance);
             }
-
         }
         System.out.println(existance);
+        return existance;
     }
 
     public void deleteProducts() {
