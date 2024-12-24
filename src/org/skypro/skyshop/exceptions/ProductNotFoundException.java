@@ -8,5 +8,9 @@ public class ProductNotFoundException extends Exception {
         super(message);
     }
 
+    public NullPointerException nullPointerException() {
+        return new NullPointerException();
+    }
+
 }
 
