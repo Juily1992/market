@@ -2,6 +2,7 @@ package org.skypro.skyshop.bucket;
 
 import org.skypro.skyshop.product.Product;
 import org.skypro.skyshop.exceptions.ProductNotFoundException;
+import org.skypro.skyshop.searchable.Searchable;
 
 import java.util.Arrays;
 
@@ -15,13 +16,15 @@ public class ProductBacket {
         this.products = new Product[7];
     }
 
-    public void addProductBusket(Product product) {
+    public Searchable addProductBusket(Product product) {
 
         if (size >= products.length) {
             System.out.println("Нельзя добавить товар, корзина переполнена");
         }
         this.products[size++] = product;
+        return product;
     }
+
 
     public int totalValue() throws ProductNotFoundException {
         int totalValue = 0;
