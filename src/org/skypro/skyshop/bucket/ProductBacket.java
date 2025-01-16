@@ -13,7 +13,7 @@ public class ProductBacket {
     static int counter = 0;
 
     public ProductBacket() {
-        this.products = new Product[7];
+        this.products = new Product[15];
     }
 
     public Searchable addProductBusket(Product product) {

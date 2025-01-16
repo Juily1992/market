@@ -1,11 +1,12 @@
 package org.skypro.skyshop.product.fixPriceProduct;
 
+import org.skypro.skyshop.exceptions.ProductNotFoundException;
 import org.skypro.skyshop.product.Product;
 
 public class FixPriceProduct extends Product {
     private static final int FIXED_PRICE = 10;
 
-    public FixPriceProduct(String nameProduct) {
+    public FixPriceProduct(String nameProduct)  {
         super(nameProduct);
     }
 

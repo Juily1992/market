@@ -8,7 +8,14 @@ import java.util.Objects;
 public abstract class Product implements Searchable {
     final String nameProduct;
 
-    public Product(String nameProduct) {
+    public Product(String nameProduct) throws IllegalArgumentException {
+        try {
+            if (nameProduct == null || nameProduct.isBlank() || nameProduct.equalsIgnoreCase("null")) {
+                throw new IllegalArgumentException("Продукт не может быть null или пуст!");
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
         this.nameProduct = nameProduct;
     }
 

@@ -1,5 +1,6 @@
 package org.skypro.skyshop.product.discountedProduct;
 
+import org.skypro.skyshop.exceptions.ProductNotFoundException;
 import org.skypro.skyshop.product.Product;
 
 public class DiscountedProduct extends Product {
@@ -8,6 +9,17 @@ public class DiscountedProduct extends Product {
 
     public DiscountedProduct(String nameProduct, int basePrice, int discount) {
         super(nameProduct);
+        try {
+            if (basePrice <= 0) {
+                throw new IllegalArgumentException("Базовая цена не может быть меньше 0 >");
+            } else if (discount < 0) {
+                throw new IllegalArgumentException("Скидка не может быть отрицательной");
+            } else if (discount > 100) {
+                throw new IllegalArgumentException("Скидка не может быть больше 100");
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
         this.basePrice = basePrice;
         this.discount = discount;
     }
@@ -21,7 +33,7 @@ public class DiscountedProduct extends Product {
     }
 
 
-     @Override
+    @Override
     public boolean isSpecial() {
         return true;
     }
