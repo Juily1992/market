@@ -20,7 +20,8 @@ public class DiscountedProduct extends Product {
         return discount;
     }
 
-    @Override
+
+     @Override
     public boolean isSpecial() {
         return true;
     }
