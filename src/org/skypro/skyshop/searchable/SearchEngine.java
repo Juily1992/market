@@ -13,12 +13,11 @@ public class SearchEngine {
         this.searchables = new Searchable[size];
         this.count = 0;
     }
-
     public Searchable[] search(String term) {
         if (term == null || term.trim().isEmpty()) {
             return new Searchable[0];
         }
-        Searchable[] results = new Searchable[5];
+        Searchable[] results = new Searchable[15];
         int resultCount = 0;
         for (Searchable item : searchables) {
             if (item == null) continue;
@@ -58,26 +57,17 @@ public class SearchEngine {
     public Searchable bestSearchableResult(String term) throws BestResultNotFound {
         int max = 0;
         Searchable best = null;
+        if (term == null || term.isBlank()) {
+            throw new BestResultNotFound("апрос не может быть");
+        }
         for (Searchable item : searchables) {
-            try {
-                if (term == null || term.isBlank()) {
-                    throw new BestResultNotFound("Запрос не может быть пустым!");
-                }
-            } catch (IllegalArgumentException e) {
-                System.out.println();
-            }
             if (item == null) {
-                continue;
-            }
-            try {
+                continue;   }
                 String searchTerm = item.searchableName().toLowerCase();
-                int count = (countBestSearchable(searchTerm, term));
-                if (count > max) {
-                    max = count;
-                    best = item;
-                }
-            } catch (NullPointerException e) {
-                System.out.println();
+            int count = (countBestSearchable(searchTerm, term));
+            if (count > max) {
+                max = count;
+                best = item;
             }
         }
         if (best == null) {
@@ -86,8 +76,8 @@ public class SearchEngine {
         return best;
     }
 
-    public int countBestSearchable(String searchTerm, String term) throws BestResultNotFound {
-
+    public int countBestSearchable(String searchTerm, String term) {
+if (searchTerm == null || term == null || term.isEmpty()) { return 0; }
         int count = 0;
         int index = 0;
         int substrindex = searchTerm.indexOf(term, index);

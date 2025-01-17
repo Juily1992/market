@@ -12,7 +12,7 @@ import org.skypro.skyshop.article.Article;
 import org.skypro.skyshop.searchable.SearchEngine;
 
 public class App {
-    public static void main(String[] args) throws ProductNotFoundException, ArticleNotFoundException {
+    public static void main(String[] args) throws ProductNotFoundException, ArticleNotFoundException, BestResultNotFound {
 
         ProductBacket backet = new ProductBacket();
 
@@ -39,7 +39,7 @@ public class App {
         try {
             System.out.println();
             Product product = new SimpleProduct("HFNUF", -5);
-            Product product1 = new SimpleProduct(null, 50);
+            Product product1 = new SimpleProduct("fdvb", 50);
             Product product2 = new DiscountedProduct("Расческа", 500, 127);
             searchEngine.add(product);
             searchEngine.add(product1);
@@ -47,14 +47,14 @@ public class App {
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
-        // метода вывода строки с наибольшим количеством повторов
+         // метода вывода строки с наибольшим количеством повторов
         try {
             System.out.println("\n Демонстрация метода вывода строки с наибольшим количеством повторов: \n 1 Сценарий: ");
             System.out.println(searchEngine.bestSearchableResult("гирлянда"));
             System.out.println("2 сценарий: ");
-            System.out.println(searchEngine.bestSearchableResult("  "));
+            System.out.println(searchEngine.bestSearchableResult(null));
         } catch (BestResultNotFound e) {
-            System.out.println(e.getMessage());
+            System.out.println("Запрос не может быть пустым!");
         }
 
         try {
@@ -66,7 +66,7 @@ public class App {
             String term3 = " ";
             searchEngine.printResults(searchEngine.search(term3), term3);
             System.out.println("Итого: " + backet.totalValue());
-        } catch (NullPointerException e) {
+        } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
 
