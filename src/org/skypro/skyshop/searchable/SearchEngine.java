@@ -13,6 +13,7 @@ public class SearchEngine {
         this.searchables = new Searchable[size];
         this.count = 0;
     }
+
     public Searchable[] search(String term) {
         if (term == null || term.trim().isEmpty()) {
             return new Searchable[0];
@@ -58,12 +59,13 @@ public class SearchEngine {
         int max = 0;
         Searchable best = null;
         if (term == null || term.isBlank()) {
-            throw new BestResultNotFound("апрос не может быть");
+            throw new BestResultNotFound("Запрос не может быть пустым!");
         }
         for (Searchable item : searchables) {
             if (item == null) {
-                continue;   }
-                String searchTerm = item.searchableName().toLowerCase();
+                continue;
+            }
+            String searchTerm = item.searchableName().toLowerCase();
             int count = (countBestSearchable(searchTerm, term));
             if (count > max) {
                 max = count;
@@ -77,7 +79,9 @@ public class SearchEngine {
     }
 
     public int countBestSearchable(String searchTerm, String term) {
-if (searchTerm == null || term == null || term.isEmpty()) { return 0; }
+        if (searchTerm == null || term == null || term.isEmpty()) {
+            throw new RuntimeException();
+        }
         int count = 0;
         int index = 0;
         int substrindex = searchTerm.indexOf(term, index);

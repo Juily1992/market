@@ -12,7 +12,7 @@ import org.skypro.skyshop.article.Article;
 import org.skypro.skyshop.searchable.SearchEngine;
 
 public class App {
-    public static void main(String[] args) throws ProductNotFoundException, ArticleNotFoundException, BestResultNotFound {
+    public static void main(String[] args) {
 
         ProductBacket backet = new ProductBacket();
 
@@ -30,10 +30,15 @@ public class App {
         System.out.println("Содержимое корзины: ");
         try {
             backet.printProduct();
+            bucketArticle.printArticle();
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
+        } catch (ProductNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (ArticleNotFoundException e) {
+            throw new RuntimeException(e);
         }
-        bucketArticle.printArticle();
+
 
         // ловим ошибку в 3 неправильных товарах
         try {
@@ -47,7 +52,7 @@ public class App {
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
-         // метода вывода строки с наибольшим количеством повторов
+        // метода вывода строки с наибольшим количеством повторов
         try {
             System.out.println("\n Демонстрация метода вывода строки с наибольшим количеством повторов: \n 1 Сценарий: ");
             System.out.println(searchEngine.bestSearchableResult("гирлянда"));
@@ -66,35 +71,31 @@ public class App {
             String term3 = " ";
             searchEngine.printResults(searchEngine.search(term3), term3);
             System.out.println("Итого: " + backet.totalValue());
+            System.out.println("Количество специальных товаров: " + backet.countIsSpecial());
+            System.out.println("Проверка наличия товара в корзине: " + backet.productExistance("Книга"));
+            System.out.println("Содержимое корзины после очистки: ");
+            backet.deleteProducts();
+            backet.printProduct();
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
-        }
-
-
-        System.out.println("Количество специальных товаров: " + backet.countIsSpecial());
-        System.out.println("Проверка наличия товара в корзине: " + backet.productExistance("Книга"));
-
-        backet.deleteProducts();
-        System.out.println("Содержимое корзины после очистки: ");
-        try {
-            backet.printProduct();
         } catch (ProductNotFoundException e) {
             System.out.println(e.getMessage());
         }
-        System.out.println("Стоимость товаров в корзине после очистки: ");
-        try {
-            backet.totalValue();
 
+        try {
+            System.out.println("Стоимость товаров в корзине после очистки: ");
+            backet.totalValue();
         } catch (ProductNotFoundException e) {
             System.out.println(e.getMessage());
         }
         System.out.println("Проверка наличия товара в корзине: ");
         try {
             System.out.println(backet.productExistance("Мыло"));
-        } catch (NullPointerException e) {
-            System.out.println("Невозможно найти продукт, так как корзина пустая");
+        } catch (ProductNotFoundException e) {
+            System.out.println("Невозможно найти продукт, так как корзина пустая!");
+        } catch (RuntimeException e) {
+            System.out.println("Невозможно найти продукт, так как корзина пустая!");
         }
-
 
     }
 }
