@@ -1,6 +1,8 @@
 package org.skypro.skyshop.searchable;
 
 
+import org.skypro.skyshop.exceptions.BestResultNotFound;
+
 import java.util.Arrays;
 
 public class SearchEngine {
@@ -16,7 +18,7 @@ public class SearchEngine {
         if (term == null || term.trim().isEmpty()) {
             return new Searchable[0];
         }
-        Searchable[] results = new Searchable[5];
+        Searchable[] results = new Searchable[15];
         int resultCount = 0;
         for (Searchable item : searchables) {
             if (item == null) continue;
@@ -34,7 +36,7 @@ public class SearchEngine {
         return results;
     }
 
-    public void printResults(Searchable[] results, String term) {
+    public void printResults(Searchable[] results, String term) throws NullPointerException {
 
         if (results.length > 0) {
             System.out.println("Поиск результата для  " + term + ":");
@@ -50,6 +52,45 @@ public class SearchEngine {
         if (count < searchables.length) {
         }
         searchables[count++] = item;
+
+    }
+
+    public Searchable bestSearchableResult(String term) throws BestResultNotFound {
+        int max = 0;
+        Searchable best = null;
+        if (term == null || term.isBlank()) {
+            throw new BestResultNotFound("Запрос не может быть пустым!");
+        }
+        for (Searchable item : searchables) {
+            if (item == null) {
+                continue;
+            }
+            String searchTerm = item.searchableName().toLowerCase();
+            int count = (countBestSearchable(searchTerm, term));
+            if (count > max) {
+                max = count;
+                best = item;
+            }
+        }
+        if (best == null) {
+            throw new BestResultNotFound("По запросу " + term + " ничего не найдено");
+        }
+        return best;
+    }
+
+    public int countBestSearchable(String searchTerm, String term) {
+        if (searchTerm == null || term == null || term.isEmpty()) {
+            throw new RuntimeException();
+        }
+        int count = 0;
+        int index = 0;
+        int substrindex = searchTerm.indexOf(term, index);
+        while (substrindex != -1) {
+            count++;
+            index = substrindex + term.length();
+            substrindex = searchTerm.indexOf(term, index);
+        }
+        return count;
 
     }
 }
