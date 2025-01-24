@@ -4,48 +4,38 @@ import org.skypro.skyshop.product.Product;
 import org.skypro.skyshop.exceptions.ProductNotFoundException;
 import org.skypro.skyshop.searchable.Searchable;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class ProductBacket {
 
-    private int size;
-    private Product[] products;
-    static int counter = 0;
+    private ArrayList<Product> products;
 
     public ProductBacket() {
-        this.products = new Product[15];
+        this.products = new ArrayList<>();
     }
 
     public Searchable addProductBusket(Product product) {
-
-        if (size >= products.length) {
-            System.out.println("Нельзя добавить товар, корзина переполнена");
-        }
-        this.products[size++] = product;
+        products.add(product);
         return product;
     }
 
 
     public int totalValue() throws ProductNotFoundException {
         int totalValue = 0;
-        for (int i = 0; i < size; i++) {
-            if (products[i] == null) {
+        for (int i = 0; i < products.size(); i++) {
+            if (products.equals(null)) {
                 throw new ProductNotFoundException("Итого: 0");
             }
-            if (products != null) {
-                Product product = products[i];
-                totalValue += product.getPrice();
-            } else {
-                totalValue = 0;
-            }
+            Product product = products.get(i);
+            totalValue += product.getPrice();
         }
 
         return totalValue;
     }
 
     public void printProduct() throws ProductNotFoundException {
-        for (int i = 0; i < size; i++) {
-            Product product = products[i];
+        for (Product product : products) {
             if (product != null) {
                 System.out.println(product.toString());
             } else if (product == null) {
@@ -59,9 +49,8 @@ public class ProductBacket {
     public boolean productExistance(String clientName) throws ProductNotFoundException {
         boolean existance = false;
 
-        for (int i = 0; i < size; i++) {
-            Product product = products[i];
-            if (clientName.equals(product.getNameProduct())) {
+        for (Product product : products) {
+            if (clientName.equalsIgnoreCase(product.getName())) {
                 existance = true;
             }
         }
@@ -69,12 +58,25 @@ public class ProductBacket {
     }
 
     public void deleteProducts() {
-        Arrays.fill(products, null);
+        products.clear();
+    }
+
+    public void deleteChosenProducts(String name) {
+        Iterator<Product> iterator = products.iterator();
+        while (iterator.hasNext()) {
+            Product product = iterator.next();
+            if (product.getName().equals(name)) {
+                System.out.println(product.toString());
+                iterator.remove();
+            }
+        }
     }
 
     public int countIsSpecial() {
-        for (int i = 0; i < size; i++) {
-            if (products[i] != null && products[i].isSpecial()) {
+        int counter = 0;
+        for (int i = 0; i < products.size(); i++) {
+            Product product = products.get(i);
+            if (products.get(i) != null && product.isSpecial()) {
                 counter++;
             }
         }
