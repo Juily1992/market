@@ -16,7 +16,7 @@ public class App {
 
         ProductBacket backet = new ProductBacket();
 
-        SearchEngine searchEngine = new SearchEngine(15);
+        SearchEngine searchEngine = new SearchEngine();
         searchEngine.add(backet.addProductBusket(new SimpleProduct("Арбуз", 4)));
         searchEngine.add(backet.addProductBusket(new SimpleProduct("Гирлянда Гирлянда", 10)));
         searchEngine.add(backet.addProductBusket(new DiscountedProduct("Гирлянда, Гирлянда, Гирлянда", 500, 50)));
@@ -38,7 +38,6 @@ public class App {
         } catch (ArticleNotFoundException e) {
             throw new RuntimeException(e);
         }
-
 
         // ловим ошибку в 3 неправильных товарах
         try {
@@ -63,6 +62,8 @@ public class App {
         }
 
         try {
+            System.out.println("Демонстрация метода удаления товара из корзины по названию через итератор: ");
+            backet.deleteChosenProducts("Книга");  // демонстрация метода удаления товара из корзины по названию через итератор
             System.out.println();
             String term1 = "Гирлянда";
             searchEngine.printResults(searchEngine.search(term1), term1);
@@ -72,7 +73,7 @@ public class App {
             searchEngine.printResults(searchEngine.search(term3), term3);
             System.out.println("Итого: " + backet.totalValue());
             System.out.println("Количество специальных товаров: " + backet.countIsSpecial());
-            System.out.println("Проверка наличия товара в корзине: " + backet.productExistance("Книга"));
+            System.out.println("Проверка наличия товара в корзине: " + backet.productExistance("Гирлянда гирлянда"));
             System.out.println("Содержимое корзины после очистки: ");
             backet.deleteProducts();
             backet.printProduct();
@@ -90,7 +91,7 @@ public class App {
         }
         System.out.println("Проверка наличия товара в корзине: ");
         try {
-            System.out.println(backet.productExistance("Мыло"));
+            System.out.println(backet.productExistance("гирлянда"));
         } catch (ProductNotFoundException e) {
             System.out.println("Невозможно найти продукт, так как корзина пустая!");
         } catch (RuntimeException e) {

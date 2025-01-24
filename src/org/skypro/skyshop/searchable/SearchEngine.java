@@ -3,42 +3,33 @@ package org.skypro.skyshop.searchable;
 
 import org.skypro.skyshop.exceptions.BestResultNotFound;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public class SearchEngine {
-    private final Searchable[] searchables;
+    private ArrayList<Searchable> searchables;
     private int count = 0;
 
-    public SearchEngine(int size) {
-        this.searchables = new Searchable[size];
+    public SearchEngine() {
+        this.searchables = new ArrayList<Searchable>();
         this.count = 0;
     }
 
-    public Searchable[] search(String term) {
-        if (term == null || term.trim().isEmpty()) {
-            return new Searchable[0];
-        }
-        Searchable[] results = new Searchable[15];
-        int resultCount = 0;
+    public ArrayList<Searchable> search(String term) {
+        ArrayList<Searchable> results = new ArrayList<>();
         for (Searchable item : searchables) {
             if (item == null) continue;
             if (item.searchableName().toLowerCase().contains(term.toLowerCase())) {
-                results[resultCount++] = item;
+                results.add(item);
             }
-            if (resultCount == 5) {
-                break;
-
-            }
-        }
-        if (resultCount < 5) {
-            return Arrays.copyOf(results, resultCount);
         }
         return results;
     }
 
-    public void printResults(Searchable[] results, String term) throws NullPointerException {
+    public void printResults(ArrayList<Searchable> results, String term) throws NullPointerException {
 
-        if (results.length > 0) {
+        if (results.size() > 0) {
             System.out.println("Поиск результата для  " + term + ":");
             for (Searchable result : results) {
                 System.out.println(result.getStringRepreseentation());
@@ -49,9 +40,7 @@ public class SearchEngine {
     }
 
     public void add(Searchable item) {
-        if (count < searchables.length) {
-        }
-        searchables[count++] = item;
+        searchables.add(item);
 
     }
 
