@@ -3,36 +3,34 @@ package org.skypro.skyshop.searchable;
 
 import org.skypro.skyshop.exceptions.BestResultNotFound;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class SearchEngine {
-    private ArrayList<Searchable> searchables;
+    private Map<String, Searchable> searchables;
     private int count = 0;
 
     public SearchEngine() {
-        this.searchables = new ArrayList<Searchable>();
+        this.searchables = new HashMap<>();
         this.count = 0;
     }
 
-    public ArrayList<Searchable> search(String term) {
-        ArrayList<Searchable> results = new ArrayList<>();
-        for (Searchable item : searchables) {
+    public Map<String, Searchable> search(String term) {
+        Map<String, Searchable> results = new TreeMap<>();
+        for (Map.Entry<String, Searchable> item : this.searchables.entrySet()) {
+
             if (item == null) continue;
-            if (item.searchableName().toLowerCase().contains(term.toLowerCase())) {
-                results.add(item);
+            if (item.getValue().searchableName().toLowerCase().contains(term.toLowerCase())) {
+                results.put(item.getKey(), item.getValue());
             }
         }
         return results;
     }
 
-    public void printResults(ArrayList<Searchable> results, String term) throws NullPointerException {
-
+    public void printResults(Map<String, Searchable> results, String term) throws NullPointerException {
         if (results.size() > 0) {
             System.out.println("Поиск результата для  " + term + ":");
-            for (Searchable result : results) {
-                System.out.println(result.getStringRepreseentation());
+            for (Map.Entry<String, Searchable> result : results.entrySet()) {
+                System.out.println(result.getValue().getStringRepreseentation());
             }
         } else {
             System.out.println("Результаты для поиска < " + term + " > не найдены");
@@ -40,8 +38,7 @@ public class SearchEngine {
     }
 
     public void add(Searchable item) {
-        searchables.add(item);
-
+        searchables.put(item.getStringRepreseentation(), item);
     }
 
     public Searchable bestSearchableResult(String term) throws BestResultNotFound {
@@ -50,15 +47,15 @@ public class SearchEngine {
         if (term == null || term.isBlank()) {
             throw new BestResultNotFound("Запрос не может быть пустым!");
         }
-        for (Searchable item : searchables) {
+        for (Map.Entry<String, Searchable> item : searchables.entrySet()) {
             if (item == null) {
                 continue;
             }
-            String searchTerm = item.searchableName().toLowerCase();
+            String searchTerm = item.getValue().searchableName().toLowerCase();
             int count = (countBestSearchable(searchTerm, term));
             if (count > max) {
                 max = count;
-                best = item;
+                best = item.getValue();
             }
         }
         if (best == null) {

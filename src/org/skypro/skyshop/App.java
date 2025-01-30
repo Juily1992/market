@@ -47,7 +47,9 @@ public class App {
             Product product2 = new DiscountedProduct("Расческа", 500, 127);
             searchEngine.add(product);
             searchEngine.add(product1);
+
             searchEngine.add(product2);
+
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
@@ -63,7 +65,7 @@ public class App {
 
         try {
             System.out.println("Демонстрация метода удаления товара из корзины по названию через итератор: ");
-            backet.deleteChosenProducts("Книга");  // демонстрация метода удаления товара из корзины по названию через итератор
+//            backet.deleteChosenProducts("Книга");  // демонстрация метода удаления товара из корзины по названию через итератор
             System.out.println();
             String term1 = "Гирлянда";
             searchEngine.printResults(searchEngine.search(term1), term1);
