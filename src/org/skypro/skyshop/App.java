@@ -10,6 +10,9 @@ import org.skypro.skyshop.product.fixPriceProduct.FixPriceProduct;
 import org.skypro.skyshop.product.simpleProduct.SimpleProduct;
 import org.skypro.skyshop.article.Article;
 import org.skypro.skyshop.searchable.SearchEngine;
+import org.skypro.skyshop.searchable.Searchable;
+
+import java.util.ArrayList;
 
 public class App {
     public static void main(String[] args) {
@@ -65,7 +68,7 @@ public class App {
 
         try {
             System.out.println("Демонстрация метода удаления товара из корзины по названию через итератор: ");
-//            backet.deleteChosenProducts("Книга");  // демонстрация метода удаления товара из корзины по названию через итератор
+            backet.deleteChosenProducts("Книга");  // демонстрация метода удаления товара из корзины по названию через итератор
             System.out.println();
             String term1 = "Гирлянда";
             searchEngine.printResults(searchEngine.search(term1), term1);
