@@ -10,6 +10,9 @@ import org.skypro.skyshop.product.fixPriceProduct.FixPriceProduct;
 import org.skypro.skyshop.product.simpleProduct.SimpleProduct;
 import org.skypro.skyshop.article.Article;
 import org.skypro.skyshop.searchable.SearchEngine;
+import org.skypro.skyshop.searchable.Searchable;
+
+import java.util.ArrayList;
 
 public class App {
     public static void main(String[] args) {
@@ -47,7 +50,9 @@ public class App {
             Product product2 = new DiscountedProduct("Расческа", 500, 127);
             searchEngine.add(product);
             searchEngine.add(product1);
+
             searchEngine.add(product2);
+
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }

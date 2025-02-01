@@ -2,33 +2,31 @@ package org.skypro.skyshop.searchable;
 
 
 import org.skypro.skyshop.exceptions.BestResultNotFound;
+import org.skypro.skyshop.product.Product;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class SearchEngine {
-    private ArrayList<Searchable> searchables;
+    private List<Searchable> searchables;
     private int count = 0;
 
     public SearchEngine() {
-        this.searchables = new ArrayList<Searchable>();
+        this.searchables = new ArrayList<>();
         this.count = 0;
     }
 
     public ArrayList<Searchable> search(String term) {
-        ArrayList<Searchable> results = new ArrayList<>();
+        Map<String, Searchable> results = new TreeMap<>();
         for (Searchable item : searchables) {
             if (item == null) continue;
             if (item.searchableName().toLowerCase().contains(term.toLowerCase())) {
-                results.add(item);
+                results.put(item.searchableName(), item);
             }
         }
-        return results;
+        return new ArrayList<>(results.values());
     }
 
     public void printResults(ArrayList<Searchable> results, String term) throws NullPointerException {
-
         if (results.size() > 0) {
             System.out.println("Поиск результата для  " + term + ":");
             for (Searchable result : results) {
@@ -41,7 +39,6 @@ public class SearchEngine {
 
     public void add(Searchable item) {
         searchables.add(item);
-
     }
 
     public Searchable bestSearchableResult(String term) throws BestResultNotFound {
