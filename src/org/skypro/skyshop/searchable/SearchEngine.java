@@ -4,9 +4,13 @@ package org.skypro.skyshop.searchable;
 import org.skypro.skyshop.exceptions.BestResultNotFound;
 
 import java.util.*;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class SearchEngine {
-    private Set<Searchable> searchables;
+    private final Set<Searchable> searchables;
     private int count = 0;
 
     public SearchEngine() {
@@ -14,14 +18,11 @@ public class SearchEngine {
         this.count = 0;
     }
 
-    public Set<Searchable> search (String term) {
-        Set<Searchable> results = new TreeSet<>(new ReverseSearchableComparator());
-         for (Searchable item : searchables) {
-            if (item == null) continue;
-            if (item.searchableName().toLowerCase().contains(term.toLowerCase())) {
-                results.add(item);
-            }
-        }
+    public Set<Searchable> search(String term) {
+                Set<Searchable> results = searchables.stream()
+                .filter(Objects::nonNull)
+                .filter(searchable -> searchable.searchableName().toLowerCase().contains(term.toLowerCase()))
+                .collect(Collectors.toCollection(() -> new TreeSet<>(new ReverseSearchableComparator())));
         return results;
     }
 

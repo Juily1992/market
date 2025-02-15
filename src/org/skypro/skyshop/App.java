@@ -59,7 +59,7 @@ public class App {
         // метода вывода строки с наибольшим количеством повторов
         try {
             System.out.println("\n Демонстрация метода вывода строки с наибольшим количеством повторов: \n 1 Сценарий: ");
-            System.out.println(searchEngine.bestSearchableResult("гирлянда"));
+            System.out.println(searchEngine.bestSearchableResult("яблоки"));
             System.out.println("2 сценарий: ");
             System.out.println(searchEngine.bestSearchableResult(null));
         } catch (BestResultNotFound e) {
